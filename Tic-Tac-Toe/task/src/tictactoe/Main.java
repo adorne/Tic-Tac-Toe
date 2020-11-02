@@ -14,15 +14,18 @@ public class Main {
 
     public static void main(String[] args) {
         // create game board
-        char[][] board = initBoard(lineSize);
+        char[][] board = initBoard();
 
         game(board);
     }
 
+    // main game method
     private static void game(char[][] board) {
-        printBoard(board);
         char currentPlayer = playerX;
         Scanner scanner = new Scanner(System.in);
+
+        printBoard(board);
+
         String gameState = gameState(board);
 
         while (gameState.equals("Game not finished")) {
@@ -49,9 +52,9 @@ public class Main {
                 gameState = gameState(board);
 
                 switch (gameState) {
-                    case "X wins":
-
                     case "Draw":
+
+                    case "X wins":
 
                     case "O wins":
                         System.out.println(gameState);
@@ -60,18 +63,18 @@ public class Main {
 
                     case "Impossible":
                         System.out.println(gameState);
-                        initBoard(lineSize);
+                        initBoard();
                         break;
                 }
             }
         }
     }
 
-//
+    //
 //    START BOARD INTERACTION
 //
     // accepts line of symbols and makes a game board from them
-    private static char[][] initBoard(int lineSize) {
+    private static char[][] initBoard() {
         char[][] board = new char[lineSize][lineSize];
 
         for (int i = 0; i < lineSize; i++) {
@@ -204,8 +207,8 @@ public class Main {
         when the field has a lot more X's than O's or vice versa
     */
     private static boolean isImpossible(char[][] board) {
-        boolean bothPlayersFilledLines = checkLine(board, Main.playerX) && checkLine(board, Main.playerO);
-        boolean incorrectDiff = Math.abs(countSymbols(board, Main.playerX) - countSymbols(board, Main.playerO)) > 1;
+        boolean bothPlayersFilledLines = checkLine(board, playerX) && checkLine(board, playerO);
+        boolean incorrectDiff = Math.abs(countSymbols(board, playerX) - countSymbols(board, playerO)) > 1;
 
         return bothPlayersFilledLines || incorrectDiff;
     }
